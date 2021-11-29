@@ -1,23 +1,41 @@
 import logo from './logo.svg';
 import './App.css';
 
+import DigitButton from './components/digitButton.jsx';
+import DigitOperator from './components/digitOperator.jsx';
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="operations-visor">
+          
+      </div>
+      <div className="calculator-container">
+        <DigitOperator operator="AC"/>
+        <DigitOperator operator="DEL"/>
+        <DigitOperator operator="+"/>
+        <DigitOperator operator="-"/>
+        
+        <DigitButton digit="1"></DigitButton>
+        <DigitButton digit="2"></DigitButton>
+        <DigitButton digit="3"></DigitButton>
+
+        <DigitOperator operator="x"/>
+
+        <DigitButton digit="4"></DigitButton>
+        <DigitButton digit="5"></DigitButton>
+        <DigitButton digit="6"></DigitButton>
+
+        <DigitOperator operator="%"/>
+
+        <DigitButton digit="7"></DigitButton>
+        <DigitButton digit="8"></DigitButton>
+
+
+        <DigitButton digit="9"></DigitButton>
+
+        <DigitOperator operator="="/>
+      </div>
     </div>
   );
 }
