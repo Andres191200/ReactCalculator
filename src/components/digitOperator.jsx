@@ -1,6 +1,8 @@
-const digitOperator = ({operator}) =>{
+import {ACTIONS} from '../App';
+
+const digitOperator = ({operator, dispatch}) =>{
     return(
-    <button>{operator}</button>
+    <button onClick={() => dispatch({type: ACTIONS.ADD_OPERATOR, payload:{operator}})}>{operator}</button>
     )
 }
 

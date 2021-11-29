@@ -6,7 +6,8 @@ import DigitButton from './components/digitButton.jsx';
 import DigitOperator from './components/digitOperator.jsx';
 
 export const ACTIONS = {
-  ADD_DIGIT:'add digit'
+  ADD_DIGIT:'add digit',
+  ADD_OPERATOR: 'add operator'
 }
 
 const reducer = (state, {type, payload}) =>{
@@ -15,6 +16,12 @@ const reducer = (state, {type, payload}) =>{
       return{
         ...state,
         firstNumber: `${state.firstNumber || ''}${payload.digit}`
+      }
+    }
+    case ACTIONS.ADD_OPERATOR : {
+      return{
+        ...state,
+        operator: `${payload.operator}`
       }
     }
   }
@@ -26,26 +33,26 @@ function App() {
   return (
     <div className="App">
       <div className="operations-visor">
-          <h1>{firstNumber ? firstNumber : '0'}</h1>
+          <h1>{firstNumber ? firstNumber : '0'} {operator}</h1>
           <h1></h1>
       </div>
       <div className="calculator-container">
-        <DigitOperator operator="AC"/>
-        <DigitOperator operator="DEL"/>
-        <DigitOperator operator="+"/>
-        <DigitOperator operator="-"/>
+        <DigitOperator dispatch={dispatch} operator="AC"/>
+        <DigitOperator dispatch={dispatch} operator="DEL"/>
+        <DigitOperator dispatch={dispatch} operator="+"/>
+        <DigitOperator dispatch={dispatch} operator="-"/>
         
         <DigitButton dispatch={dispatch} digit="1"></DigitButton>
         <DigitButton dispatch={dispatch} digit="2"></DigitButton>
         <DigitButton dispatch={dispatch} digit="3"></DigitButton>
 
-        <DigitOperator operator="x"/>
+        <DigitOperator dispatch={dispatch} operator="x"/>
 
         <DigitButton dispatch={dispatch} digit="4"></DigitButton>
         <DigitButton dispatch={dispatch} digit="5"></DigitButton>
         <DigitButton dispatch={dispatch} digit="6"></DigitButton>
 
-        <DigitOperator operator="%"/>
+        <DigitOperator dispatch={dispatch} operator="%"/>
 
         <DigitButton dispatch={dispatch} digit="7"></DigitButton>
         <DigitButton dispatch={dispatch} digit="8"></DigitButton>
