@@ -1,6 +1,8 @@
-const digitButton = ({digit}) =>{
+import {ACTIONS} from '../App';
+
+const digitButton = ({digit, dispatch}) =>{
     return(
-    <button>{digit}</button>
+    <button onClick={() => dispatch({type:ACTIONS.ADD_DIGIT, payload:{digit}})}>{digit}</button>
     )
 }
 
