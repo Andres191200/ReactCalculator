@@ -13,15 +13,29 @@ export const ACTIONS = {
 const reducer = (state, {type, payload}) =>{
   switch(type){
     case ACTIONS.ADD_DIGIT : {
-      return{
-        ...state,
-        firstNumber: `${state.firstNumber || ''}${payload.digit}`
+      if(state.operator){
+        return{
+          ...state,
+          secondNumber: `${state.secondNumber || ''}${payload.digit}`
+        }     
+      }else{
+        return{
+          ...state,
+          firstNumber: `${state.firstNumber || ''}${payload.digit}`
+        }
       }
     }
     case ACTIONS.ADD_OPERATOR : {
+      document.querySelector(`.visor-content`).classList.add('setted');
       return{
         ...state,
         operator: `${payload.operator}`
+      }
+    }
+    case ACTIONS.CLEAR : {
+      document.querySelector(`.visor-content`).classList.remove('setted');
+      return{
+        state : ''
       }
     }
   }
@@ -33,11 +47,11 @@ function App() {
   return (
     <div className="App">
       <div className="operations-visor">
-          <h1>{firstNumber ? firstNumber : '0'} {operator}</h1>
-          <h1></h1>
+          <h1 className="visor-content">{firstNumber ? firstNumber : '0'} {operator}</h1>
+          <h1 className="second-number">{secondNumber}</h1>
       </div>
       <div className="calculator-container">
-        <DigitOperator dispatch={dispatch} operator="AC"/>
+        <button onClick={() =>dispatch({type:ACTIONS.CLEAR})}>AC</button>
         <DigitOperator dispatch={dispatch} operator="DEL"/>
         <DigitOperator dispatch={dispatch} operator="+"/>
         <DigitOperator dispatch={dispatch} operator="-"/>
@@ -58,7 +72,7 @@ function App() {
         <DigitButton dispatch={dispatch} digit="8"></DigitButton>
         <DigitButton dispatch={dispatch} digit="9"></DigitButton>
 
-        <DigitOperator operator="="/>
+        <button>=</button>
       </div>
     </div>
   );
