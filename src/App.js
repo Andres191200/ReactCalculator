@@ -1,9 +1,11 @@
-import {useReducer} from 'react';
+import {useReducer, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 import DigitButton from './components/digitButton.jsx';
 import DigitOperator from './components/digitOperator.jsx';
+
+var EVALUATED = false;
 
 export const ACTIONS = {
   ADD_DIGIT:'add digit',
@@ -14,6 +16,9 @@ export const ACTIONS = {
 const reducer = (state, {type, payload}) =>{
   switch(type){
     case ACTIONS.ADD_DIGIT : {
+      if(EVALUATED){
+        return state;
+      }
       if(state.operator){
         return{
           ...state,
@@ -38,6 +43,7 @@ const reducer = (state, {type, payload}) =>{
     }
     case ACTIONS.CLEAR : {
       document.querySelector(`.visor-content`).classList.remove('setted');
+      EVALUATED = false;
       return{
         state : ''
       }
@@ -46,6 +52,7 @@ const reducer = (state, {type, payload}) =>{
       if(!state.operator || !state.secondNumber){
         return state;
       }
+      EVALUATED=true;
       document.querySelector(`.visor-content`).classList.remove('setted');
       switch(state.operator){
         case "x": {
