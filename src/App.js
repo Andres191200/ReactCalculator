@@ -55,10 +55,12 @@ const reducer = (state, {type, payload}) =>{
       EVALUATED=true;
       document.querySelector(`.visor-content`).classList.remove('setted');
       switch(state.operator){
+
+        //NOTE: .toFixed(2) just limit decimals to 2 numbers ex: (9.6666).toFixed(2) => expected output = (9.66)
         case "x": {
           return{
             ...state,
-            firstNumber: state.firstNumber * state.secondNumber,
+            firstNumber: (state.firstNumber * state.secondNumber).toFixed(2),
             operator: '',
             secondNumber: ''
           }
@@ -66,7 +68,7 @@ const reducer = (state, {type, payload}) =>{
         case "+": {
           return{
             ...state,
-            firstNumber: parseInt(state.firstNumber) + parseInt(state.secondNumber),
+            firstNumber: (parseInt(state.firstNumber) + parseInt(state.secondNumber)).toFixed(2),
             operator: '',
             secondNumber: ''
           }
@@ -74,7 +76,7 @@ const reducer = (state, {type, payload}) =>{
         case "-": {
           return{
             ...state,
-            firstNumber: state.firstNumber - state.secondNumber,
+            firstNumber: (state.firstNumber - state.secondNumber).toFixed(2),
             operator: '',
             secondNumber: ''
           }
