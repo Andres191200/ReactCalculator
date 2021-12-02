@@ -7,7 +7,8 @@ import DigitOperator from './components/digitOperator.jsx';
 
 export const ACTIONS = {
   ADD_DIGIT:'add digit',
-  ADD_OPERATOR: 'add operator'
+  ADD_OPERATOR: 'add operator',
+  EVALUATE: 'evaluate'
 }
 
 const reducer = (state, {type, payload}) =>{
@@ -27,7 +28,10 @@ const reducer = (state, {type, payload}) =>{
     }
     case ACTIONS.ADD_OPERATOR : {
       document.querySelector(`.visor-content`).classList.add('setted');
-      return{
+      if(state.operator){
+        return state;
+      }
+      else return{
         ...state,
         operator: `${payload.operator}`
       }
@@ -38,8 +42,49 @@ const reducer = (state, {type, payload}) =>{
         state : ''
       }
     }
+    case ACTIONS.EVALUATE : {
+      if(!state.operator || !state.secondNumber){
+        return state;
+      }
+      document.querySelector(`.visor-content`).classList.remove('setted');
+      switch(state.operator){
+        case "x": {
+          return{
+            ...state,
+            firstNumber: state.firstNumber * state.secondNumber,
+            operator: '',
+            secondNumber: ''
+          }
+        }
+        case "+": {
+          return{
+            ...state,
+            firstNumber: parseInt(state.firstNumber) + parseInt(state.secondNumber),
+            operator: '',
+            secondNumber: ''
+          }
+        }
+        case "-": {
+          return{
+            ...state,
+            firstNumber: state.firstNumber - state.secondNumber,
+            operator: '',
+            secondNumber: ''
+          }
+        }
+        case "%": {
+          return{
+            ...state,
+            firstNumber: (state.firstNumber/state.secondNumber).toFixed(2),
+            operator: '',
+            secondNumber: ''
+          }
+        }
+      }
+    }
   }
 }
+
 
 function App() {
   const [{firstNumber, operator, secondNumber}, dispatch] = useReducer(reducer, {})
@@ -51,7 +96,7 @@ function App() {
           <h1 className="second-number">{secondNumber}</h1>
       </div>
       <div className="calculator-container">
-        <button onClick={() =>dispatch({type:ACTIONS.CLEAR})}>AC</button>
+        <button className="calc-button" onClick={() =>dispatch({type:ACTIONS.CLEAR})}>AC</button>
         <DigitOperator dispatch={dispatch} operator="DEL"/>
         <DigitOperator dispatch={dispatch} operator="+"/>
         <DigitOperator dispatch={dispatch} operator="-"/>
@@ -72,7 +117,7 @@ function App() {
         <DigitButton dispatch={dispatch} digit="8"></DigitButton>
         <DigitButton dispatch={dispatch} digit="9"></DigitButton>
 
-        <button>=</button>
+        <button className="calc-button" onClick={() => dispatch({type:ACTIONS.EVALUATE})}>=</button>
       </div>
     </div>
   );

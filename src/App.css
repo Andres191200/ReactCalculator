@@ -96,3 +96,12 @@ table {
 .second-number{
   position:absolute;
 }
+
+.calc-button{
+  font:20px century gothic;
+}
+
+.calc-button:hover{
+  background:#9fadff;
+  transition:.3s;
+}
