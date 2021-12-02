@@ -16,7 +16,7 @@ export const ACTIONS = {
 const reducer = (state, {type, payload}) =>{
   switch(type){
     case ACTIONS.ADD_DIGIT : {
-      if(EVALUATED){
+      if(EVALUATED && !state.operator){
         return state;
       }
       if(state.operator){
