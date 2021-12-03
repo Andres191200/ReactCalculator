@@ -60,7 +60,7 @@ table {
 .calculator-container{
   display:grid;
   grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(4,1fr);
+  grid-template-rows: repeat(5,1fr);
   background:#CCC;
   height:400px;
   min-width:25%;
@@ -104,4 +104,8 @@ table {
 .calc-button:hover{
   background:#9fadff;
   transition:.3s;
+}
+
+.span-two{
+  grid-column: span 2;
 }

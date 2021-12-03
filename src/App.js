@@ -16,6 +16,30 @@ export const ACTIONS = {
 const reducer = (state, {type, payload}) =>{
   switch(type){
     case ACTIONS.ADD_DIGIT : {
+      if((payload.digit === '0' && state.firstNumber === '0')){
+        return{
+          firstNumber: null
+        }
+      }
+      if(payload.digit === '.' && !state.firstNumber){
+        return state;
+      }
+      if(state.operator){
+        if(payload.digit === '.' && !state.secondNumber){
+          return state;
+        }
+      }     
+
+      //CHECKING IF FIRST AND SECOND NUMBER HAS "." OPERATOR
+      if(payload.digit === '.' && (state.firstNumber.includes(".")) && !state.operator){ 
+        return state;
+      }
+      if(state.secondNumber){ //ONLY IF SECOND NUMBER EXISTS, THEN IT CHECKS FOR "." CHARACTER
+        if((payload.digit === '.' && state.secondNumber.includes(".")) && state.operator){
+          return state;
+        }
+      }  
+
       if(EVALUATED && !state.operator){
         return state;
       }
@@ -124,9 +148,12 @@ function App() {
 
         <DigitButton dispatch={dispatch} digit="7"></DigitButton>
         <DigitButton dispatch={dispatch} digit="8"></DigitButton>
-        <DigitButton dispatch={dispatch} digit="9"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="9"></DigitButton>      
 
         <button className="calc-button" onClick={() => dispatch({type:ACTIONS.EVALUATE})}>=</button>
+
+        <DigitButton span={'span-two'} dispatch={dispatch} digit="0"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="."></DigitButton>
       </div>
     </div>
   );
