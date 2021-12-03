@@ -10,6 +10,7 @@ var EVALUATED = false;
 export const ACTIONS = {
   ADD_DIGIT:'add digit',
   ADD_OPERATOR: 'add operator',
+  DELETE: 'delete number',
   EVALUATE: 'evaluate'
 }
 
@@ -72,6 +73,27 @@ const reducer = (state, {type, payload}) =>{
         state : ''
       }
     }
+    case ACTIONS.DELETE : {
+      if(!EVALUATED){
+        if(state.firstNumber){
+          if(state.operator){
+            if(state.secondNumber){
+              return{
+                ...state,
+                secondNumber : (state.secondNumber.substring(0, state.secondNumber.length -1))
+              }
+            }
+            return state;
+          }
+          else return{
+            ...state,
+            firstNumber: (state.firstNumber.substring(0, state.firstNumber.length -1))
+          }
+        }
+        return state;
+      }
+      return state;
+    }
     case ACTIONS.EVALUATE : {
       if(!state.operator || !state.secondNumber){
         return state;
@@ -130,7 +152,7 @@ function App() {
       </div>
       <div className="calculator-container">
         <button className="calc-button" onClick={() =>dispatch({type:ACTIONS.CLEAR})}>AC</button>
-        <DigitOperator dispatch={dispatch} operator="DEL"/>
+        <button className="calc-button" onClick={() =>dispatch({type:ACTIONS.DELETE})}>DEL</button>
         <DigitOperator dispatch={dispatch} operator="+"/>
         <DigitOperator dispatch={dispatch} operator="-"/>
         
