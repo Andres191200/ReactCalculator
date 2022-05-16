@@ -161,9 +161,9 @@ function App() {
         <DigitOperator dispatch={dispatch} operator="+" />
         <DigitOperator dispatch={dispatch} operator="-" />
 
-        <DigitButton dispatch={dispatch} digit="1"></DigitButton>
-        <DigitButton dispatch={dispatch} digit="2"></DigitButton>
-        <DigitButton dispatch={dispatch} digit="3"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="7"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="8"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="9"></DigitButton>
 
         <DigitOperator dispatch={dispatch} operator="x" />
 
@@ -173,9 +173,9 @@ function App() {
 
         <DigitOperator dispatch={dispatch} operator="%" />
 
-        <DigitButton dispatch={dispatch} digit="7"></DigitButton>
-        <DigitButton dispatch={dispatch} digit="8"></DigitButton>
-        <DigitButton dispatch={dispatch} digit="9"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="1"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="2"></DigitButton>
+        <DigitButton dispatch={dispatch} digit="3"></DigitButton>
 
         <button className="calc-button" onClick={() => dispatch({ type: ACTIONS.EVALUATE })}>=</button>
 
